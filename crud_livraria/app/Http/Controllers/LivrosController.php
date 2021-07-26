@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LivroRequest;
 use App\Models\Livro;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LivrosController extends Controller
 {
     public function create()
     {
+        
+        if(!Auth::check()){
+            return view('dashboard');
+        }
         return view('livros.create');
     }
 
-    public function store(Request $request){
+    public function store(LivroRequest $request)
+    {
+        
+        if(!Auth::check()){
+            return view('dashboard');
+        }
         Livro::create([
             'nome' => $request->nome,
             'autor' => $request->autor,
@@ -22,50 +32,67 @@ class LivrosController extends Controller
             'paginas' => $request->paginas,
             'preco' => $request->preco,
             'avaliacao_livro' => $request->avaliacao_livro,
-  
+        
         ]);
-        return "Produto criado com sucesso!";
+
+        $livros = Livro::get();
+
+        return view('livros.show', compact('livros'));
     }
 
-    public function show($id)
+    public function show()
     {
-        $livro = Livro::findOrFail($id);
-        return view('livros.show', ['livro' => $livro]);
+        if(!Auth::check()){
+            return view('dashboard');
+        }
+        $livros = Livro::get();
+        return view('livros.show', compact('livros'));
     }
 
     public function edit($id)
     {
+        if(!Auth::check()){
+            return view('dashboard');
+        }
         $livro = Livro::findOrFail($id);
         return view('livros.edit', ['livro' => $livro]);
     }
 
-    public function update(Request $request, $id){
-     $livro = Livro::findOrFail($id);
-
-     $livro->update([
-        'nome' => $request->nome,
-        'autor' => $request->autor,
-        'editora' => $request->editora,
-        'isbn' => $request->isbn,
-        'idioma' => $request->idioma,
-        'paginas' => $request->paginas,
-        'preco' => $request->preco,
-        'avaliacao_livro' => $request->avaliacao_livro,
-     ]);
-
-     return "Produto Atualizado com sucesso";
-    }
-
-    public function delete($id)
+    public function update(LivroRequest $request, $id)
     {
+        
+        if(!Auth::check()){
+            return view('dashboard');
+        }
         $livro = Livro::findOrFail($id);
-        return view('livros.delete', ['livro' => $livro]);
+
+        $livro->update([
+            'nome' => $request->nome,
+            'autor' => $request->autor,
+            'editora' => $request->editora,
+            'isbn' => $request->isbn,
+            'idioma' => $request->idioma,
+            'paginas' => $request->paginas,
+            'preco' => $request->preco,
+            'avaliacao_livro' => $request->avaliacao_livro,
+        ]);
+
+        $livros = Livro::get();
+
+        return view('livros.show', compact('livros'));
     }
 
-    public function destroy($id){
-     $livro = Livro::findOrFail($id);
-     $livro->delete();
+    public function destroy($id)
+    {
+        
+        if(!Auth::check()){
+            return view('dashboard');
+        }
 
-     return "Livro excluido com sucesso";
+        Livro::findOrFail($id)->delete();
+
+        return redirect('/livro/ver');
+
+        
     }
 }
