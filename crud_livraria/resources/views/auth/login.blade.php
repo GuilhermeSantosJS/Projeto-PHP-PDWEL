@@ -74,7 +74,7 @@
 						<span class="txt1">
 							Esqueceu
 						</span>
-						<a class="txt2" href="#">
+						<a class="txt2" href="/forgot-password">
 							Usuario / Senha?
 						</a>
 					</div>

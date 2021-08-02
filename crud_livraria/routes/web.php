@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 
 /*
@@ -32,3 +34,7 @@ Route::post('/livros/novo', [LivrosController::class, 'store']) -> name('registr
 Route::get('/livros/editar/{id}', [LivrosController::class, 'edit']);
 Route::post('/livros/editar/{id}', [LivrosController::class, 'update']) -> name('alterar_livro');
 Route::delete('/livro/ver/{id}', [LivrosController::class, 'destroy']);
+Route::get('/forgot-password', [ForgotPasswordController::class, 'getEmail']) -> name('forgot-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'postEmail']);
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'getPassword']) -> name('reset.password.get');
+Route::post('/reset-password', [ResetPasswordController::class, 'updatePassword']) -> name('reset.password.post');
