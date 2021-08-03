@@ -33,6 +33,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ ('/livro/ver') }}">Ver Livros</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ ('/endereco') }}">Cadastrar Endereco</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ ('/endereco/ver') }}">Meus Endereços</a>
+                    </li>
                     @endguest
                 </ul>
             </div>

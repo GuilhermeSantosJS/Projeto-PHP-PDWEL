@@ -40,4 +40,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function endereco()
+    {
+        return $this->hasOne(Address::class, 'id_usuario');
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }

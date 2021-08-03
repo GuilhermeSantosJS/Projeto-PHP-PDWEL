@@ -126,7 +126,7 @@
                                 <div class="form-group mt-4 mb-0">
                                     <input class="btn btn-primary btn-block" type="submit" value="Salvar">
                                 </div>
-                                <span </form>
+                                
                         </div>
                     </div>
                 </div>
